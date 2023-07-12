@@ -6,5 +6,8 @@ private static void initializeSystem(int n) {
         isPenDown = false;
         facingDirection = "north";
     }
-
+  private static void printCurrentPosition() {
+        System.out.printf("Position: %d, %d - Pen: %s - Facing: %s%n",
+                posX, posY, (isPenDown ? "down" : "up"), facingDirection);
+    }
   
