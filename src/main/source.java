@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Robot {
 	private static int[][] board;
-    private static int size;
-    private static int posX;
-    private static int posY;
+    private static int dimension;
+    private static int Xaxis;
+    private static int Yaxis;
     private static boolean isPenDown;
     private static String Direction;
     
@@ -20,17 +20,50 @@ public class Robot {
 	}
 
 }
+	private static void executeCommand(String command) {
+        char commandType = command.charAt(0);
+        String arguments = command.substring(1).trim();
+
+        switch (commandType) {
+            case 'I':
+                initializeSystem(Integer.parseInt(arguments));
+                break;
+            case 'C':
+                printCurrentPosition();
+                break;
+            case 'D':
+                setPenDown(true);
+                break;
+            case 'U':
+                setPenDown(false);
+                break;
+            case 'R':
+                turnRight();
+                break;
+            case 'L':
+                turnLeft();
+                break;
+            case 'M':
+                move(Integer.parseInt(arguments));
+                break;
+            case 'P':
+                printFloor();
+                break;
+            default:
+                System.out.println("Invalid command.");
+        }
+    }
 	private static void initializeSystem(int n) {
-        size = n;
-        board = new int[size][size];
-        posX = 0;
-        posY = 0;
+        dimension = n;
+        board = new int[dimension][dimension];
+        Xaxis = 0;
+        Yaxis = 0;
         isPenDown = false;
         Direction = "north";
     }
   private static void printCurrentPosition() {
         System.out.printf("Position: %d, %d - Pen: %s - Facing: %s%n",
-                posX, posY, (isPenDown ? "down" : "up"), Direction);
+                Xaxis, Yaxis, (isPenDown ? "down" : "up"), Direction);
     }
   
   private static void setPenDown(boolean down) {
@@ -75,36 +108,54 @@ public class Robot {
       switch (Direction) {
           case "north":
               for (int i = 0; i < steps; i++) {
-                  posY = Math.min(posY + 1, size - 1);
+                  Yaxis = Math.min(Yaxis + 1, dimension - 1);
                   if (isPenDown) {
-                      board[posY][posX] = 1;
+                      board[Yaxis][Xaxis] = 1;
                   }
               }
               break;
           case "east":
               for (int i = 0; i < steps; i++) {
-                  posX = Math.min(posX + 1, size - 1);
+                  Xaxis = Math.min(Xaxis + 1, dimension - 1);
                   if (isPenDown) {
-                      board[posY][posX] = 1;
+                      board[Yaxis][Xaxis] = 1;
                   }
               }
               break;
           case "south":
               for (int i = 0; i < steps; i++) {
-                  posY = Math.max(posY - 1, 0);
+                  Yaxis = Math.max(Yaxis - 1, 0);
                   if (isPenDown) {
-                      board[posY][posX] = 1;
+                      board[Yaxis][Xaxis] = 1;
                   }
               }
               break;
           case "west":
               for (int i = 0; i < steps; i++) {
-                  posX = Math.max(posX - 1, 0);
+                  Xaxis = Math.max(Xaxis - 1, 0);
                   if (isPenDown) {
-                      board[posY][posX] = 1;
+                      board[Yaxis][Xaxis] = 1;
                   }
               }
               break;
       }
   }
+ private static void printFloor() {
+        for (int i = dimension - 1; i >= 0; i--) {
+            System.out.printf("%2d ", i);
+            for (int j = 0; j < dimension; j++) {
+                if (board[i][j] == 1) {
+                    System.out.print("* ");
+                } else {
+                    System.out.print("  ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.print("   ");
+        for (int i = 0; i < dimension; i++) {
+            System.out.printf("%2d", i);
+        }
+        System.out.println();
+    }
 }
