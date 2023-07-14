@@ -42,3 +42,25 @@ public class UnitTest {
         assertEquals(false, robot.PenDown);
     }
 
+
+	
+    @Test
+    public void testPrintBoard() {
+        
+        robot.initialize_System(3);
+
+        robot.setPenDown(true);
+        robot.move(2);
+        robot.turn_Right();
+        robot.move(1);
+        robot.turn_Left();
+        robot.move(1);
+
+        String expectedOutput = " 2 * *   \n" +
+                				" 1 *     \n" +
+                				" 0       \n" +
+                				"    0 1 2\n";
+
+        assertEquals(expectedOutput, robot.print_board());
+    }
+}
