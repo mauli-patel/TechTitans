@@ -1,12 +1,15 @@
+package org.techtitans.mavenproject.TechTitans;
 import java.util.Scanner;
 
+
+
 public class Robot {
-    private static int[][] board;
-    private static int size;
-    private static int posX;
-    private static int posY;
-    private static boolean isPenDown;
-    private static String Direction;
+    static int[][] board;
+    static int size;
+    static int posX;
+    static int posY;
+    static boolean isPenDown;
+    static String Direction;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -19,7 +22,7 @@ public class Robot {
         }
     }
 
-    private static void executeCommand(String command) {
+    public static void executeCommand(String command) {
         char commandType = command.charAt(0);
         String arguments = command.substring(1).trim();
 
@@ -35,7 +38,7 @@ public class Robot {
  
     }
 
-    private static void initialize_System(int n) {
+    public static void initialize_System(int n) {
         size = n;
         board = new int[size][size];
         posX = 0;
@@ -44,30 +47,30 @@ public class Robot {
         Direction = "north";
     }
 
-    private static void print_CurrentPosition() {
+    public static void print_CurrentPosition() {
         System.out.printf("Position: %d, %d - Pen: %s - Facing: %s%n",
                 posX, posY, (isPenDown ? "down" : "up"), Direction);
     }
 
-    private static void setPenDown(boolean down) {
+    public static void setPenDown(boolean down) {
         isPenDown = down;
     }
 
-    private static void turn_Right() {
+    public static void turn_Right() {
        if (Direction == "north"){ Direction = "east"; }
        else if (Direction == "east") { Direction = "south"; }
        else if (Direction == "south") { Direction = "west"; }
        else  { Direction = "north"; }
     }
     
-    private static void turn_Left() {
+    public static void turn_Left() {
     	 if (Direction == "north"){ Direction = "west"; }
          else if (Direction == "east") { Direction = "north"; }
          else if (Direction == "south") { Direction = "east"; }
          else  { Direction = "south"; }
     }
 
-    private static void move(int steps) {
+    public static void move(int steps) {
     	 if (Direction == "north"){
                 for (int i = 0; i < steps; i++) {
                     posY = Math.min(posY + 1, size - 1);
@@ -103,22 +106,29 @@ public class Robot {
      }
     
 
-    private static void print_board() {
+    public static String print_board() {
+        StringBuilder output = new StringBuilder();
         for (int i = size - 1; i >= 0; i--) {
-            System.out.printf("%2d ", i);
+            output.append(String.format("%2d ", i));
             for (int j = 0; j < size; j++) {
                 if (board[i][j] == 1) {
-                    System.out.print("* ");
+                    output.append("* ");
                 } else {
-                    System.out.print("  ");
+                    output.append("  ");
                 }
             }
-            System.out.println();
+            output.append("\n");
         }
-        System.out.print("   ");
+        output.append("   ");
         for (int i = 0; i < size; i++) {
-            System.out.printf("%2d", i);
+            output.append(String.format("%2d", i));
         }
-        System.out.println();
+        output.append("\n");
+        System.out.print(output);
+        
+        return output.toString();
     }
+
+
+	
 }
