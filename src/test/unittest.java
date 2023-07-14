@@ -15,7 +15,8 @@ public class UnitTest {
         robot = new Robot();
     }
 
-	@Test
+
+    @Test
     public void testInitializeSystem() {
         
         robot.initialize_System(5);
@@ -42,8 +43,80 @@ public class UnitTest {
         assertEquals(false, robot.PenDown);
     }
 
+    @Test
+    public void testturn_Right() {
+        
+        robot.Direction = "north";
+        robot.turn_Right();
+        assertEquals("east", robot.Direction);
 
-	
+        robot.Direction = "east";
+        robot.turn_Right();
+        assertEquals("south", robot.Direction);
+
+        robot.Direction = "south";
+        robot.turn_Right();
+        assertEquals("west", robot.Direction);
+
+        robot.Direction = "west";
+        robot.turn_Right();
+        assertEquals("north", robot.Direction);
+    }
+
+    @Test
+    public void testturn_Left() {
+        
+        robot.Direction = "north";
+        robot.turn_Left();
+        assertEquals("west", robot.Direction);
+
+        robot.Direction = "west";
+        robot.turn_Left();
+        assertEquals("south", robot.Direction);
+
+        robot.Direction = "south";
+        robot.turn_Left();
+        assertEquals("east", robot.Direction);
+
+        robot.Direction = "east";
+        robot.turn_Left();
+        assertEquals("north", robot.Direction);
+    }
+
+    @Test
+    public void testMove() {
+        robot.initialize_System(5);
+
+        robot.setPenDown(true);
+        robot.move(3);
+        assertEquals(0, robot.Xaxis);
+        assertEquals(3, robot.Yaxis);
+        assertEquals(1, robot.board[1][0]);
+        assertEquals(1, robot.board[2][0]);
+        assertEquals(1, robot.board[3][0]);
+
+        robot.Direction = "east";
+        robot.move(2);
+        assertEquals(2, robot.Xaxis);
+        assertEquals(3, robot.Yaxis);
+        assertEquals(1, robot.board[3][1]);
+        assertEquals(1, robot.board[3][2]);
+
+        robot.Direction = "south";
+        robot.move(2);
+        assertEquals(2, robot.Xaxis);
+        assertEquals(1, robot.Yaxis);
+        assertEquals(1, robot.board[2][2]);
+        assertEquals(1, robot.board[1][2]);
+
+        robot.Direction = "west";
+        robot.move(1);
+        assertEquals(1, robot.Xaxis);
+        assertEquals(1, robot.Yaxis);
+        assertEquals(1, robot.board[1][1]);
+    }
+
+
     @Test
     public void testPrintBoard() {
         
@@ -62,5 +135,5 @@ public class UnitTest {
                 				"    0 1 2\n";
 
         assertEquals(expectedOutput, robot.print_board());
-    }
+    }
 }
