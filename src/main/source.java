@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class Robot {
     static int[][] board;
-    static int size;
-    static int posX;
-    static int posY;
-    static boolean isPenDown;
+    static int dimension;
+    static int Xaxis;
+    static int Yaxis;
+    static boolean PenDown;
     static String Direction;
 
     public static void main(String[] args) {
@@ -39,21 +39,21 @@ public class Robot {
     }
 
     public static void initialize_System(int n) {
-        size = n;
-        board = new int[size][size];
-        posX = 0;
-        posY = 0;
-        isPenDown = false;
+        dimension = n;
+        board = new int[dimension][dimension];
+        Xaxis = 0;
+        Yaxis = 0;
+        PenDown = false;
         Direction = "north";
     }
 
     public static void print_CurrentPosition() {
         System.out.printf("Position: %d, %d - Pen: %s - Facing: %s%n",
-                posX, posY, (isPenDown ? "down" : "up"), Direction);
+                Xaxis, Yaxis, (PenDown ? "down" : "up"), Direction);
     }
 
     public static void setPenDown(boolean down) {
-        isPenDown = down;
+        PenDown = down;
     }
 
     public static void turn_Right() {
@@ -73,33 +73,33 @@ public class Robot {
     public static void move(int steps) {
     	 if (Direction == "north"){
                 for (int i = 0; i < steps; i++) {
-                    posY = Math.min(posY + 1, size - 1);
-                    if (isPenDown) {
-                        board[posY][posX] = 1;
+                    Yaxis = Math.min(Yaxis + 1, dimension - 1);
+                    if (PenDown) {
+                        board[Yaxis][Xaxis] = 1;
                     }
                 }
     	 }
     	 else if (Direction == "east"){
                 for (int i = 0; i < steps; i++) {
-                    posX = Math.min(posX + 1, size - 1);
-                    if (isPenDown) {
-                        board[posY][posX] = 1;
+                    Xaxis = Math.min(Xaxis + 1, dimension - 1);
+                    if (PenDown) {
+                        board[Yaxis][Xaxis] = 1;
                     }
                 }
     	 }
     	 else if (Direction == "south") {
                 for (int i = 0; i < steps; i++) {
-                    posY = Math.max(posY - 1, 0);
-                    if (isPenDown) {
-                        board[posY][posX] = 1;
+                    Yaxis = Math.max(Yaxis - 1, 0);
+                    if (PenDown) {
+                        board[Yaxis][Xaxis] = 1;
                     }
                 }
     	 }
     	 else {
                 for (int i = 0; i < steps; i++) {
-                    posX = Math.max(posX - 1, 0);
-                    if (isPenDown) {
-                        board[posY][posX] = 1;
+                    Xaxis = Math.max(Xaxis - 1, 0);
+                    if (PenDown) {
+                        board[Yaxis][Xaxis] = 1;
                     }
                 }
     	 }
@@ -108,9 +108,9 @@ public class Robot {
 
     public static String print_board() {
         StringBuilder output = new StringBuilder();
-        for (int i = size - 1; i >= 0; i--) {
+        for (int i = dimension - 1; i >= 0; i--) {
             output.append(String.format("%2d ", i));
-            for (int j = 0; j < size; j++) {
+            for (int j = 0; j < dimension; j++) {
                 if (board[i][j] == 1) {
                     output.append("* ");
                 } else {
@@ -120,7 +120,7 @@ public class Robot {
             output.append("\n");
         }
         output.append("   ");
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < dimension; i++) {
             output.append(String.format("%2d", i));
         }
         output.append("\n");
