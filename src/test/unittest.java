@@ -114,7 +114,19 @@ public class UniTest {
 		        assertEquals(1, robot.Yaxis);
 		        assertEquals(1, robot.board[1][1]);
 		    }
+		    
+		    @Test
+		    public void testPrintCurrentPosition() {
+		        robot.Xaxis = 0;
+		        robot.Yaxis = 3;
+		        robot.PenDown = true;
+		        robot.Direction = "north";
 
+		        String output = robot.print_CurrentPosition();
+		        String expectedOutput = "Position: 0, 3 - Pen: down - Facing: north\r"
+		        		+ "\n";
+		        assertEquals(expectedOutput, output);
+		    }
 
 		    @Test
 		    public void testPrintBoard() {
@@ -136,3 +148,4 @@ public class UniTest {
 		        assertEquals(expectedOutput, robot.print_board());
 		    }
 }
+
