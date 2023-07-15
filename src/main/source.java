@@ -1,9 +1,8 @@
-package org.techtitans.mavenproject.TechTitans;
+package org.phase.mavenproject.org.phase.mavenproject;
+
 import java.util.Scanner;
 
-
-
-public class Robot {
+public class Robo{
     static int[][] board;
     static int dimension;
     static int Xaxis;
@@ -47,9 +46,11 @@ public class Robot {
         Direction = "north";
     }
 
-    public static void print_CurrentPosition() {
-        System.out.printf("Position: %d, %d - Pen: %s - Facing: %s%n",
+    public static String print_CurrentPosition() {
+    	String output = String.format("Position: %d, %d - Pen: %s - Facing: %s%n",
                 Xaxis, Yaxis, (PenDown ? "down" : "up"), Direction);
+    	System.out.println(output);
+        return output;
     }
 
     public static void setPenDown(boolean down) {
