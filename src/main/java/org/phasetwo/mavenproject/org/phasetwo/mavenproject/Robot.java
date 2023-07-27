@@ -33,7 +33,7 @@ public class Robot {
 	        else if(commandType == 'L' || commandType =='l'){turn_Left();}
 	        else if(commandType == 'M' || commandType =='m'){move(Integer.parseInt(arguments));}
 	        else if(commandType == 'P' || commandType =='p'){print_board();}
-	      System.out.println("Invalid command.");
+	      else {System.out.println("Invalid command.");}
 	 
 	    }
 
